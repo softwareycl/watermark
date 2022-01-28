@@ -2,7 +2,7 @@
  * @Author: ycl
  * @Date: 2022-01-19 19:58:28
  * @LastEditors: ycl
- * @LastEditTime: 2022-01-25 09:49:10
+ * @LastEditTime: 2022-01-28 10:08:32
  * @Description: 水印组件
 -->
 
@@ -44,7 +44,7 @@ export default {
       childList: true,
       subtree: true,
     };
-    const observer = new MutationObserver(() => {
+    this.observer = new MutationObserver(() => {
       console.log("监听中");
       const wmInstance = document.querySelector(".wm-container");
 
@@ -67,13 +67,17 @@ export default {
         }
       }
     });
-    observer.observe(pNode, options);
+    this.observer.observe(pNode, options);
   },
   data() {
     return {
       wmBackground1: "",
       wmBackground2: "",
+      observer: null
     };
   },
+  beforeDestroy() {
+    this.observer.disconnect();
+  }
 };
 </script>
